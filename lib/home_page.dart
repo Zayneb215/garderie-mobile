@@ -36,6 +36,35 @@ const List<Map<String, dynamic>> activites = [
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  void _showMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(message),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+  }
+
+  void _showAbout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('À propos'),
+        content: const Text(
+          'Ma Garderie\nApplication mobile pour gérer les activités des enfants.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Fermer'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,17 +89,26 @@ class HomePage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.home),
               title: const Text('Accueil'),
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.pop(context);
+                _showMessage(context, 'Accueil');
+              },
             ),
             ListTile(
               leading: const Icon(Icons.child_care),
               title: const Text('Activités'),
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.pop(context);
+                _showMessage(context, 'Activités');
+              },
             ),
             ListTile(
               leading: const Icon(Icons.info),
               title: const Text('À propos'),
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.pop(context);
+                _showAbout(context);
+              },
             ),
           ],
         ),
@@ -92,13 +130,13 @@ class HomePage extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(activite['description'] as String),
-              onTap: () {},
+              onTap: () => _showMessage(context, activite['titre'] as String),
             ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _showMessage(context, 'Nouvelle activité'),
         child: const Icon(Icons.add),
       ),
     );
