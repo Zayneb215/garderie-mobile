@@ -1,5 +1,38 @@
 import 'package:flutter/material.dart';
 
+const List<Map<String, dynamic>> activites = [
+  {
+    "id": 1,
+    "titre": "Dessin et coloriage",
+    "description": "Développement de la créativité",
+    "icone": "🎨"
+  },
+  {
+    "id": 2,
+    "titre": "Jeux éducatifs",
+    "description": "Apprentissage par le jeu",
+    "icone": "🧩"
+  },
+  {
+    "id": 3,
+    "titre": "Musique et chansons",
+    "description": "Éveil musical des enfants",
+    "icone": "🎵"
+  },
+  {
+    "id": 4,
+    "titre": "Lecture de contes",
+    "description": "Découverte des histoires",
+    "icone": "📚"
+  },
+  {
+    "id": 5,
+    "titre": "Activités sportives",
+    "description": "Développement de la motricité",
+    "icone": "⚽"
+  },
+];
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -42,8 +75,27 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: const Center(
-        child: Text('Liste des activités'),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(12),
+        itemCount: activites.length,
+        itemBuilder: (context, index) {
+          final activite = activites[index];
+          return Card(
+            margin: const EdgeInsets.symmetric(vertical: 6),
+            child: ListTile(
+              leading: Text(
+                activite['icone'] as String,
+                style: const TextStyle(fontSize: 32),
+              ),
+              title: Text(
+                activite['titre'] as String,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(activite['description'] as String),
+              onTap: () {},
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
